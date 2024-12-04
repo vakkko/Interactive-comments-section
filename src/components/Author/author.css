@@ -1,0 +1,38 @@
+.author-container,
+.commenter-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.username {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.896rem;
+  color: #334253;
+}
+
+.created {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  color: #67727e;
+}
+
+.commenter-info {
+  gap: 1.5rem;
+}
+
+.txt-reply {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.4rem;
+  color: #5357b6;
+}
+
+.btn-reply {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
