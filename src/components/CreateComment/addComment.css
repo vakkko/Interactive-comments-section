@@ -1,0 +1,31 @@
+.create-comment {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  background-color: white;
+  justify-content: space-around;
+  padding: 2.4rem;
+  border-radius: 10px;
+}
+
+.btn-send {
+  font-family: "Rubik", sans-serif;
+  border: none;
+  background-color: #5357b6;
+  color: white;
+  padding: 1.2rem 3rem;
+  border-radius: 10px;
+}
+
+input {
+  font-family: "Rubik", sans-serif;
+  border: 1px solid #e9ebf0;
+  width: 80%;
+  padding: 1rem 0 6rem 1rem;
+  outline: 1px solid #e9ebf0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}

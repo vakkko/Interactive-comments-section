@@ -1,22 +1,45 @@
 import "./author.css";
-interface AuthorProps {
-  picture: string;
-  userName: string;
-  created: string;
-}
+import { AuthorProps } from "../../App.modal";
 
-export default function Author({ picture, userName, created }: AuthorProps) {
+export default function Author({
+  picture,
+  userName,
+  created,
+  handleEditClick,
+  onDelete,
+  isClicked,
+  handleSaveClick,
+}: AuthorProps) {
+  const isNotAuthor = userName !== "juliusomo";
+
   return (
     <div className="author-container">
-      <div className="commenter-info">
+      <div className="commentor-info">
         <img src={picture} alt={`${userName}-Profile`} />
         <p className="username">{userName}</p>
+        {!isNotAuthor && <span>you</span>}
         <p className="created">{created}</p>
       </div>
-      <div>
-        <button className="btn-reply">
-          <img src="./images/icon-reply.svg" alt="reply icon" />
-          <span className="txt-reply">Reply</span>
+      <div className="buttons">
+        {isNotAuthor && (
+          <button className="btn-reply">
+            <img src="./images/icon-reply.svg" alt="reply icon" />
+            Reply
+          </button>
+        )}
+        {!isClicked && (
+          <button onClick={handleEditClick} className="btn-edit">
+            <img src="./images/icon-edit.svg" alt="delete icon" />
+            Edit
+          </button>
+        )}
+        {isClicked && (
+          <button className="btn-save" onClick={handleSaveClick}>
+            Save
+          </button>
+        )}
+        <button onClick={onDelete} className="btn-delete">
+          <img src="./images/icon-delete.svg" alt="delete icon" />
         </button>
       </div>
     </div>

@@ -1,15 +1,4 @@
-.comment-section {
-  background-color: white;
+.comments-section {
   width: 50%;
   margin-top: 5rem;
-  border-radius: 10px;
-}
-
-.amyrobson-container,
-.maxblagun-container,
-.replies-section > div {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 2.4rem;
 }

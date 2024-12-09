@@ -1,8 +1,12 @@
 .author-container,
-.commenter-info {
+.commentor-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.author-container {
+  gap: 1rem;
 }
 
 .username {
@@ -19,20 +23,35 @@
   color: #67727e;
 }
 
-.commenter-info {
+.commentor-info {
   gap: 1.5rem;
 }
 
-.txt-reply {
+.btn-reply,
+.btn-edit,
+.btn-save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.4rem;
   color: #5357b6;
 }
 
-.btn-reply {
+.commentor-info > span {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.541rem;
+  color: white;
+  background-color: #5357b6;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
 }
