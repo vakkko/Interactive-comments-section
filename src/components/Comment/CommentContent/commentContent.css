@@ -1,0 +1,10 @@
+.comment {
+  font-family: "Rubik", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  border: none;
+  resize: none;
+  outline: none;
+  width: 100%;
+}

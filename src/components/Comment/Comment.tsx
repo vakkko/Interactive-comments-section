@@ -1,28 +1,68 @@
-import { forwardRef } from "react";
+import Score from "./Score/Score";
+import Author from "./Author/Author";
+import CommentContent from "./CommentContent/CommentContent";
 import "./comment.css";
+import { CommentSectionProps } from "../../App.modal";
+import { useRef, useState } from "react";
 
-interface CommentProps {
-  content: string;
-  onChange: (newContent: string) => void;
+export default function CommentSection({
+  userName,
+  picture,
+  created,
+  content,
+  score,
+  onDelete,
+  onReply,
+}: CommentSectionProps) {
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const [text, setText] = useState<string>(content);
+  const [editClicked, setEditClicked] = useState<boolean>(false);
+
+  const handleEditClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.setSelectionRange(
+        inputRef.current.value.length,
+        inputRef.current.value.length
+      );
+      setEditClicked(true);
+    }
+  };
+
+  const handleSaveClick = () => {
+    if (inputRef.current) {
+      inputRef.current.blur();
+
+      setEditClicked(false);
+    }
+  };
+
+  const handleContentChange = (newContent: string) => {
+    setText(newContent);
+  };
+
+  return (
+    <div className={`${userName}-comment`}>
+      <div>
+        <Score score={score} />
+      </div>
+      <div className="author-comment">
+        <Author
+          handleEditClick={handleEditClick}
+          handleSaveClick={handleSaveClick}
+          created={created}
+          picture={picture}
+          userName={userName}
+          onDelete={onDelete}
+          editClicked={editClicked}
+          onReply={onReply}
+        />
+        <CommentContent
+          ref={inputRef}
+          onChange={handleContentChange}
+          content={text}
+        />
+      </div>
+    </div>
+  );
 }
-
-const Comments = forwardRef<HTMLTextAreaElement, CommentProps>(
-  ({ content, onChange }, ref) => {
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onChange(e.target.value);
-    };
-
-    return (
-      <textarea
-        ref={ref}
-        className="comment"
-        rows={5}
-        cols={60}
-        defaultValue={content}
-        onChange={handleChange}
-      />
-    );
-  }
-);
-
-export default Comments;

@@ -1,5 +1,5 @@
 import "./author.css";
-import { AuthorProps } from "../../App.modal";
+import { AuthorProps } from "../../../App.modal";
 
 export default function Author({
   picture,
@@ -7,8 +7,9 @@ export default function Author({
   created,
   handleEditClick,
   onDelete,
-  isClicked,
+  editClicked,
   handleSaveClick,
+  onReply,
 }: AuthorProps) {
   const isNotAuthor = userName !== "juliusomo";
 
@@ -22,18 +23,18 @@ export default function Author({
       </div>
       <div className="buttons">
         {isNotAuthor && (
-          <button className="btn-reply">
+          <button onClick={onReply} className="btn-reply">
             <img src="./images/icon-reply.svg" alt="reply icon" />
             Reply
           </button>
         )}
-        {!isClicked && (
+        {!editClicked && (
           <button onClick={handleEditClick} className="btn-edit">
             <img src="./images/icon-edit.svg" alt="delete icon" />
             Edit
           </button>
         )}
-        {isClicked && (
+        {editClicked && (
           <button className="btn-save" onClick={handleSaveClick}>
             Save
           </button>
