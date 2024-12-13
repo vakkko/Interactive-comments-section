@@ -38,6 +38,7 @@ export interface CommentSectionProps {
   content: string;
   score: number;
   onDelete: () => void;
+  onReply: () => void;
 }
 
 export interface AuthorProps {
@@ -46,6 +47,7 @@ export interface AuthorProps {
   created: string;
   handleEditClick: () => void;
   onDelete: () => void;
-  isClicked: boolean;
+  editClicked: boolean;
   handleSaveClick: () => void;
+  onReply: () => void;
 }
