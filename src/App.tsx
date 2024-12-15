@@ -2,7 +2,6 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import AddComment from "./components/AddComment/AddComment";
-import AddComment from "./components/AddComment/AddComment";
 import { Commentor } from "./App.modal";
 import CommentSection from "./components/Comment/Comment";
 import { SyntheticEvent } from "react";
@@ -131,21 +130,21 @@ function App() {
 
         setUser(res.data);
       } catch (error) {
-    const fetchData = async () => {
-      try {
-        const res = await axios("./data.json");
+        const fetchData = async () => {
+          try {
+            const res = await axios("./data.json");
 
-        if (res.statusText !== "OK") {
-          throw new Error("Failed to fetch");
-        }
+            if (res.statusText !== "OK") {
+              throw new Error("Failed to fetch");
+            }
 
-        setUser(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+            setUser(res.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
 
-    fetchData();
+        fetchData();
       }
     };
 
@@ -154,7 +153,6 @@ function App() {
 
   return (
     <div className="comments-section">
-      {user?.comments.map((comment, index) => (
       {user?.comments.map((comment, index) => (
         <div className={`${comment.user.username}-container`} key={index}>
           <CommentSection
@@ -168,7 +166,6 @@ function App() {
             replyClicked={replyClicked}
             setReplyClicked={setReplyClicked}
           />
-
 
           {comment.replies.length > 0 && (
             <div className="replies-section">

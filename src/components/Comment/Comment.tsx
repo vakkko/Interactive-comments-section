@@ -1,9 +1,7 @@
 import Score from "./Score/Score";
 import Author from "./Author/Author";
 import CommentContent from "./CommentContent/CommentContent";
-import Score from "./Score/Score";
-import Author from "./Author/Author";
-import CommentContent from "./CommentContent/CommentContent";
+
 import "./comment.css";
 import { CommentProps } from "../../App.modal";
 import { useRef, useState } from "react";
