@@ -31,7 +31,7 @@ export interface Commentor {
   comments: Comment[];
 }
 
-export interface CommentSectionProps {
+export interface CommentProps {
   userName: string;
   picture: string;
   created: string;
@@ -39,6 +39,8 @@ export interface CommentSectionProps {
   score: number;
   onDelete: () => void;
   onReply: () => void;
+  setReplyClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  replyClicked: boolean;
 }
 
 export interface AuthorProps {
@@ -50,4 +52,5 @@ export interface AuthorProps {
   editClicked: boolean;
   handleSaveClick: () => void;
   onReply: () => void;
+  setReplyClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }

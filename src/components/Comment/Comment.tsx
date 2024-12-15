@@ -2,7 +2,7 @@ import Score from "./Score/Score";
 import Author from "./Author/Author";
 import CommentContent from "./CommentContent/CommentContent";
 import "./comment.css";
-import { CommentSectionProps } from "../../App.modal";
+import { CommentProps } from "../../App.modal";
 import { useRef, useState } from "react";
 
 export default function CommentSection({
@@ -13,7 +13,9 @@ export default function CommentSection({
   score,
   onDelete,
   onReply,
-}: CommentSectionProps) {
+  replyClicked,
+  setReplyClicked,
+}: CommentProps) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState<string>(content);
   const [editClicked, setEditClicked] = useState<boolean>(false);
@@ -44,7 +46,7 @@ export default function CommentSection({
   return (
     <div className={`${userName}-comment`}>
       <div>
-        <Score score={score} />
+        <Score score={score} replyClicked={replyClicked} />
       </div>
       <div className="author-comment">
         <Author
@@ -56,6 +58,7 @@ export default function CommentSection({
           onDelete={onDelete}
           editClicked={editClicked}
           onReply={onReply}
+          setReplyClicked={setReplyClicked}
         />
         <CommentContent
           ref={inputRef}

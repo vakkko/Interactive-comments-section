@@ -5,6 +5,7 @@ import AddComment from "./components/AddComment/AddComment";
 import { Commentor } from "./App.modal";
 import CommentSection from "./components/Comment/Comment";
 import { SyntheticEvent } from "react";
+import DeleteComment from "./components/DeleteComment/DeleteComment";
 
 function App() {
   const [user, setUser] = useState<Commentor>({
@@ -18,8 +19,18 @@ function App() {
     comments: [],
   });
 
+  const [replyClicked, setReplyClicked] = useState<boolean>(false);
+  const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
+  const [selectedComment, setSelectedComment] = useState<{
+    index: number;
+    replyId?: number;
+  } | null>(null);
+
   const handleReply = (i: number) => {
     const replyTo = user.comments[i].user.username;
+
+    setReplyClicked(true);
+
     const newReply = {
       id: Date.now(),
       replyingTo: user.comments[i].user.username,
@@ -96,6 +107,16 @@ function App() {
       ...user,
       comments: updatedComments,
     });
+    setDeleteClicked(false);
+  };
+
+  const handleCancel = () => {
+    setDeleteClicked(false);
+  };
+
+  const OnDelete = (index: number, replyId?: number) => {
+    setSelectedComment({ index, replyId });
+    setDeleteClicked(true);
   };
 
   useEffect(() => {
@@ -126,8 +147,10 @@ function App() {
             created={comment.createdAt}
             content={comment.content}
             score={comment.score}
-            onDelete={() => handleDelete(index)}
+            onDelete={() => OnDelete(index)}
             onReply={() => handleReply(index)}
+            replyClicked={replyClicked}
+            setReplyClicked={setReplyClicked}
           />
 
           {comment.replies.length > 0 && (
@@ -140,8 +163,10 @@ function App() {
                     created={reply.createdAt}
                     content={reply.content}
                     score={reply.score}
-                    onDelete={() => handleDelete(index, reply.id)}
+                    onDelete={() => OnDelete(index, reply.id)}
                     onReply={() => handleReply(reply.id)}
+                    replyClicked={replyClicked}
+                    setReplyClicked={setReplyClicked}
                   />
                 </div>
               ))}
@@ -154,6 +179,13 @@ function App() {
         picture={user?.currentUser.image.webp}
         onNewComment={handleNewComment}
       />
+      {deleteClicked && selectedComment && (
+        <DeleteComment
+          onConfirm={handleDelete}
+          selectedComment={selectedComment}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 }

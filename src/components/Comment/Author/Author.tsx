@@ -10,6 +10,7 @@ export default function Author({
   editClicked,
   handleSaveClick,
   onReply,
+  setReplyClicked,
 }: AuthorProps) {
   const isNotAuthor = userName !== "juliusomo";
 

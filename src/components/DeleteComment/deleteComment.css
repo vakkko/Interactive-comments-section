@@ -1,0 +1,66 @@
+.delete-container h2 {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 2.844rem;
+  color: #334253;
+}
+
+.delete-container p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  color: #67727e;
+}
+
+.delete-options > button {
+  font-family: "Rubik", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  border: none;
+  padding: 1.2rem 3.2rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.delete-container {
+  background-color: white;
+  padding: 3.2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  position: absolute;
+  width: 28%;
+  top: 36%;
+  left: 36%;
+}
+
+.delete-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-cancel {
+  background-color: #67727e;
+}
+
+.btn-confirm {
+  background-color: #ed6368;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
