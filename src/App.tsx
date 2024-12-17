@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AddComment from "./components/AddComment/AddComment";
 import { Commentor } from "./App.modal";
-import CommentSection from "./components/Comment/Comment";
+import Comment from "./components/Comment/Comment";
 import { SyntheticEvent } from "react";
 import DeleteComment from "./components/DeleteComment/DeleteComment";
 
@@ -26,14 +26,12 @@ function App() {
     replyId?: number;
   } | null>(null);
 
-  const handleReply = (i: number) => {
-    const replyTo = user.comments[i].user.username;
-
+  const handleReply = (i: number, replyTo: string) => {
     setReplyClicked(true);
 
     const newReply = {
       id: Date.now(),
-      replyingTo: user.comments[i].user.username,
+      replyingTo: replyTo,
       content: `@${replyTo}`,
       createdAt: "",
       replies: [],
@@ -49,7 +47,11 @@ function App() {
 
     const updatedComments = [...user.comments];
 
-    updatedComments[i].replies.push(newReply);
+    if (i === 3) {
+      updatedComments[1].replies.push(newReply);
+    } else {
+      updatedComments[i].replies.push(newReply);
+    }
     setUser({
       ...user,
       comments: updatedComments,
@@ -155,14 +157,14 @@ function App() {
     <div className="comments-section">
       {user?.comments.map((comment, index) => (
         <div className={`${comment.user.username}-container`} key={index}>
-          <CommentSection
+          <Comment
             userName={comment.user.username}
             picture={comment.user.image.webp}
             created={comment.createdAt}
             content={comment.content}
             score={comment.score}
             onDelete={() => OnDelete(index)}
-            onReply={() => handleReply(index)}
+            onReply={() => handleReply(index, comment.user.username)}
             replyClicked={replyClicked}
             setReplyClicked={setReplyClicked}
           />
@@ -171,14 +173,14 @@ function App() {
             <div className="replies-section">
               {comment.replies.map((reply) => (
                 <div key={reply.id}>
-                  <CommentSection
+                  <Comment
                     userName={reply.user.username}
                     picture={reply.user.image.webp}
                     created={reply.createdAt}
                     content={reply.content}
                     score={reply.score}
                     onDelete={() => OnDelete(index, reply.id)}
-                    onReply={() => handleReply(reply.id)}
+                    onReply={() => handleReply(reply.id, reply.user.username)}
                     replyClicked={replyClicked}
                     setReplyClicked={setReplyClicked}
                   />

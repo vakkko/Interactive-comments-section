@@ -7,4 +7,28 @@
   resize: none;
   outline: none;
   width: 100%;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 1rem 2.5rem;
+}
+
+.comment:focus {
+  border: 1px solid #5357b6;
+}
+
+.comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.btn-update {
+  font-family: "Rubik", sans-serif;
+  border: none;
+  background-color: #5357b6;
+  color: white;
+  padding: 1.2rem 3rem;
+  border-radius: 10px;
 }

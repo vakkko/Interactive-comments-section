@@ -4,25 +4,34 @@ import "./commentContent.css";
 interface CommentProps {
   content: string;
   onChange: (newContent: string) => void;
+  editClicked: boolean;
+  handleSaveClick: () => void;
 }
 
-const Comments = forwardRef<HTMLTextAreaElement, CommentProps>(
-  ({ content, onChange }, ref) => {
+const CommentContent = forwardRef<HTMLTextAreaElement, CommentProps>(
+  ({ content, onChange, editClicked, handleSaveClick }, ref) => {
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e.target.value);
     };
 
     return (
-      <textarea
-        ref={ref}
-        className="comment"
-        rows={5}
-        cols={80}
-        defaultValue={content}
-        onChange={handleChange}
-      />
+      <div className="comment-wrapper">
+        <textarea
+          ref={ref}
+          className="comment"
+          rows={5}
+          cols={80}
+          value={content}
+          onChange={handleChange}
+        />
+        {editClicked && (
+          <button onClick={handleSaveClick} className="btn-update">
+            UPDATE
+          </button>
+        )}
+      </div>
     );
   }
 );
 
-export default Comments;
+export default CommentContent;

@@ -8,7 +8,6 @@ export default function Author({
   handleEditClick,
   onDelete,
   editClicked,
-  handleSaveClick,
   onReply,
   setReplyClicked,
 }: AuthorProps) {
@@ -35,11 +34,7 @@ export default function Author({
             Edit
           </button>
         )}
-        {editClicked && (
-          <button className="btn-save" onClick={handleSaveClick}>
-            Save
-          </button>
-        )}
+
         <button onClick={onDelete} className="btn-delete">
           <img src="./images/icon-delete.svg" alt="delete icon" />
         </button>

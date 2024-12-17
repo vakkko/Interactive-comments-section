@@ -50,7 +50,6 @@ export interface AuthorProps {
   handleEditClick: () => void;
   onDelete: () => void;
   editClicked: boolean;
-  handleSaveClick: () => void;
   onReply: () => void;
   setReplyClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }

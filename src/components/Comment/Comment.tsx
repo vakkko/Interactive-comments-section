@@ -1,12 +1,11 @@
 import Score from "./Score/Score";
 import Author from "./Author/Author";
 import CommentContent from "./CommentContent/CommentContent";
-
 import "./comment.css";
 import { CommentProps } from "../../App.modal";
 import { useRef, useState } from "react";
 
-export default function CommentSection({
+export default function Comment({
   userName,
   picture,
   created,
@@ -22,7 +21,7 @@ export default function CommentSection({
   const [editClicked, setEditClicked] = useState<boolean>(false);
 
   const handleEditClick = () => {
-    if (inputRef.current) {
+    if (inputRef.current && !editClicked) {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(
         inputRef.current.value.length,
@@ -35,7 +34,6 @@ export default function CommentSection({
   const handleSaveClick = () => {
     if (inputRef.current) {
       inputRef.current.blur();
-
       setEditClicked(false);
     }
   };
@@ -52,7 +50,6 @@ export default function CommentSection({
       <div className="author-comment">
         <Author
           handleEditClick={handleEditClick}
-          handleSaveClick={handleSaveClick}
           created={created}
           picture={picture}
           userName={userName}
@@ -65,6 +62,8 @@ export default function CommentSection({
           ref={inputRef}
           onChange={handleContentChange}
           content={text}
+          editClicked={editClicked}
+          handleSaveClick={handleSaveClick}
         />
       </div>
     </div>
