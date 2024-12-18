@@ -9,10 +9,7 @@
 }
 
 .btn-send {
-  font-family: "Rubik", sans-serif;
-  border: none;
   background-color: #5357b6;
-  color: white;
   padding: 1.2rem 3rem;
   border-radius: 10px;
 }

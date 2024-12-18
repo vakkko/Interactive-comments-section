@@ -1,38 +1,17 @@
-.amyrobson-comment,
-.maxblagun-comment {
-  background-color: white;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 2.4rem;
-  border-radius: 15px;
-}
-
-.replies-section > div {
-  background-color: white;
-  padding: 2.4rem;
-  border-radius: 15px;
-}
-
-.maxblagun-container,
-.replies-section,
-.comments-section,
-.amyrobson-container {
+.replies-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
-}
-
-.replies-section {
   margin-left: 5rem;
   padding-left: 4rem;
   border-left: 1px solid #e9ebf0;
 }
 
-.ramsesmiron-comment,
-.juliusomo-comment {
+.user-comment {
   display: flex;
   align-items: center;
   gap: 2rem;
+  background-color: white;
+  border-radius: 15px;
+  padding: 2.4rem;
 }

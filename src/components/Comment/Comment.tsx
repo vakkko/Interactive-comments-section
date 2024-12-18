@@ -43,7 +43,7 @@ export default function Comment({
   };
 
   return (
-    <div className={`${userName}-comment`}>
+    <div className={"user-comment"}>
       <div>
         <Score score={score} replyClicked={replyClicked} />
       </div>

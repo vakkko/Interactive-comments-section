@@ -5,7 +5,7 @@ import AddComment from "./components/AddComment/AddComment";
 import { Commentor } from "./App.modal";
 import Comment from "./components/Comment/Comment";
 import { SyntheticEvent } from "react";
-import DeleteComment from "./components/DeleteComment/DeleteComment";
+import DeleteComment from "./components/Comment/DeleteComment/DeleteComment";
 
 function App() {
   const [user, setUser] = useState<Commentor>({
@@ -23,7 +23,6 @@ function App() {
   const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
   const [selectedComment, setSelectedComment] = useState<{
     index: number;
-    replyId?: number;
   } | null>(null);
 
   const handleReply = (i: number, replyTo: string) => {
@@ -50,7 +49,7 @@ function App() {
     if (i === 3) {
       updatedComments[1].replies.push(newReply);
     } else {
-      updatedComments[i].replies.push(newReply);
+      updatedComments[i - 1].replies.push(newReply);
     }
     setUser({
       ...user,
@@ -95,15 +94,10 @@ function App() {
     form.reset();
   };
 
-  const handleDelete = (index: number, replyId?: number) => {
+  const handleDelete = (index: number) => {
     const updatedComments = [...user.comments];
 
-    if (replyId !== undefined) {
-      const comment = updatedComments[index];
-      comment.replies = comment.replies.filter((reply) => reply.id !== replyId);
-    } else {
-      updatedComments.splice(index, 1);
-    }
+    updatedComments.splice(index - 1, 1);
 
     setUser({
       ...user,
@@ -116,8 +110,8 @@ function App() {
     setDeleteClicked(false);
   };
 
-  const OnDelete = (index: number, replyId?: number) => {
-    setSelectedComment({ index, replyId });
+  const OnDelete = (index: number) => {
+    setSelectedComment({ index });
     setDeleteClicked(true);
   };
 
@@ -156,16 +150,16 @@ function App() {
   const RecursiveComponent = ({ data }: { data: Commentor }) => {
     return (
       <>
-        {data?.comments.map((comment, index) => (
-          <div className={`${comment.user.username}-container`} key={index}>
+        {data?.comments.map((comment) => (
+          <div className={"comment-card"} key={comment.id}>
             <Comment
               userName={comment.user.username}
               picture={comment.user.image.webp}
               created={comment.createdAt}
               content={comment.content}
               score={comment.score}
-              onDelete={() => OnDelete(index)}
-              onReply={() => handleReply(index, comment.user.username)}
+              onDelete={() => OnDelete(comment.id)}
+              onReply={() => handleReply(comment.id, comment.user.username)}
               replyClicked={replyClicked}
               setReplyClicked={setReplyClicked}
             />
