@@ -153,43 +153,41 @@ function App() {
     fetchData();
   }, []);
 
+  const RecursiveComponent = ({ data }: { data: Commentor }) => {
+    return (
+      <>
+        {data?.comments.map((comment, index) => (
+          <div className={`${comment.user.username}-container`} key={index}>
+            <Comment
+              userName={comment.user.username}
+              picture={comment.user.image.webp}
+              created={comment.createdAt}
+              content={comment.content}
+              score={comment.score}
+              onDelete={() => OnDelete(index)}
+              onReply={() => handleReply(index, comment.user.username)}
+              replyClicked={replyClicked}
+              setReplyClicked={setReplyClicked}
+            />
+            <div className="replies-section">
+              {comment.replies && (
+                <RecursiveComponent
+                  data={{
+                    currentUser: data.currentUser,
+                    comments: comment.replies,
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  };
+
   return (
     <div className="comments-section">
-      {user?.comments.map((comment, index) => (
-        <div className={`${comment.user.username}-container`} key={index}>
-          <Comment
-            userName={comment.user.username}
-            picture={comment.user.image.webp}
-            created={comment.createdAt}
-            content={comment.content}
-            score={comment.score}
-            onDelete={() => OnDelete(index)}
-            onReply={() => handleReply(index, comment.user.username)}
-            replyClicked={replyClicked}
-            setReplyClicked={setReplyClicked}
-          />
-
-          {comment.replies.length > 0 && (
-            <div className="replies-section">
-              {comment.replies.map((reply) => (
-                <div key={reply.id}>
-                  <Comment
-                    userName={reply.user.username}
-                    picture={reply.user.image.webp}
-                    created={reply.createdAt}
-                    content={reply.content}
-                    score={reply.score}
-                    onDelete={() => OnDelete(index, reply.id)}
-                    onReply={() => handleReply(reply.id, reply.user.username)}
-                    replyClicked={replyClicked}
-                    setReplyClicked={setReplyClicked}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+      <RecursiveComponent data={user} />
       <AddComment
         userName={user?.currentUser.username}
         picture={user?.currentUser.image.webp}

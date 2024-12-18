@@ -24,6 +24,7 @@ interface Reply {
   score: number;
   replyingTo: string;
   user: User;
+  replies: Reply[];
 }
 
 export interface Commentor {

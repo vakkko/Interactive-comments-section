@@ -1,11 +1,15 @@
 .amyrobson-comment,
-.maxblagun-comment,
-.replies-section > div,
-.juliusomo-container {
+.maxblagun-comment {
   background-color: white;
   display: flex;
   align-items: center;
   gap: 2rem;
+  padding: 2.4rem;
+  border-radius: 15px;
+}
+
+.replies-section > div {
+  background-color: white;
   padding: 2.4rem;
   border-radius: 15px;
 }
