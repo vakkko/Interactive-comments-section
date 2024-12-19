@@ -9,7 +9,6 @@ export default function Author({
   onDelete,
   editClicked,
   onReply,
-  setReplyClicked,
 }: AuthorProps) {
   const isNotAuthor = userName !== "juliusomo";
 

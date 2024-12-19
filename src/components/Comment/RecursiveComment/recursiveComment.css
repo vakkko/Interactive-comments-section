@@ -1,0 +1,15 @@
+.comment-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.replies-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 5rem;
+  padding-left: 4rem;
+  border-left: 1px solid #e9ebf0;
+}

@@ -6,10 +6,3 @@
   justify-content: center;
   gap: 2rem;
 }
-
-.comment-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
-}

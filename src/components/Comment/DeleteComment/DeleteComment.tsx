@@ -1,11 +1,9 @@
-import React from "react";
 import "./deleteComment.css";
 
 interface DeleteCommentProps {
   onConfirm: (index: number, replyId?: number) => void;
   selectedComment: {
     index: number;
-    replyId?: number;
   };
   onCancel: () => void;
 }
@@ -28,9 +26,7 @@ export default function DeleteComment({
             NO, CANCEL
           </button>
           <button
-            onClick={() =>
-              onConfirm(selectedComment.index, selectedComment.replyId)
-            }
+            onClick={() => onConfirm(selectedComment.index)}
             className="btn-confirm"
           >
             YES, DELETE

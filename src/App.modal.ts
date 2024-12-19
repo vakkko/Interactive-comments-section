@@ -40,8 +40,6 @@ export interface CommentProps {
   score: number;
   onDelete: () => void;
   onReply: () => void;
-  setReplyClicked: React.Dispatch<React.SetStateAction<boolean>>;
-  replyClicked: boolean;
 }
 
 export interface AuthorProps {
@@ -52,5 +50,4 @@ export interface AuthorProps {
   onDelete: () => void;
   editClicked: boolean;
   onReply: () => void;
-  setReplyClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }

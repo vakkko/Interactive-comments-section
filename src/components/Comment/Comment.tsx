@@ -13,8 +13,6 @@ export default function Comment({
   score,
   onDelete,
   onReply,
-  replyClicked,
-  setReplyClicked,
 }: CommentProps) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState<string>(content);
@@ -45,7 +43,7 @@ export default function Comment({
   return (
     <div className={"user-comment"}>
       <div>
-        <Score score={score} replyClicked={replyClicked} />
+        <Score score={score} />
       </div>
       <div className="author-comment">
         <Author
@@ -56,7 +54,6 @@ export default function Comment({
           onDelete={onDelete}
           editClicked={editClicked}
           onReply={onReply}
-          setReplyClicked={setReplyClicked}
         />
         <CommentContent
           ref={inputRef}
