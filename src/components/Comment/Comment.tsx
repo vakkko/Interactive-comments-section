@@ -4,6 +4,7 @@ import CommentContent from "./CommentContent/CommentContent";
 import "./comment.css";
 import { CommentProps } from "../../App.modal";
 import { useRef, useState } from "react";
+import ReplyComment from "./ReplyComment/ReplyComment";
 
 export default function Comment({
   userName,
@@ -12,11 +13,14 @@ export default function Comment({
   content,
   score,
   onDelete,
-  onReply,
+  replyContent,
+  setReplyContent,
+  handleUpdateReply,
 }: CommentProps) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState<string>(content);
   const [editClicked, setEditClicked] = useState<boolean>(false);
+  const [toDoReply, setToDoReply] = useState<boolean>(false);
 
   const handleEditClick = () => {
     if (inputRef.current && !editClicked) {
@@ -41,28 +45,38 @@ export default function Comment({
   };
 
   return (
-    <div className={"user-comment"}>
-      <div>
-        <Score score={score} />
+    <>
+      <div className={"user-comment"}>
+        <div>
+          <Score score={score} />
+        </div>
+        <div className="author-comment">
+          <Author
+            handleEditClick={handleEditClick}
+            created={created}
+            picture={picture}
+            userName={userName}
+            onDelete={onDelete}
+            editClicked={editClicked}
+            setToDoReply={setToDoReply}
+          />
+          <CommentContent
+            ref={inputRef}
+            onChange={handleContentChange}
+            content={text}
+            editClicked={editClicked}
+            handleSaveClick={handleSaveClick}
+          />
+        </div>
       </div>
-      <div className="author-comment">
-        <Author
-          handleEditClick={handleEditClick}
-          created={created}
-          picture={picture}
-          userName={userName}
-          onDelete={onDelete}
-          editClicked={editClicked}
-          onReply={onReply}
+      {toDoReply && (
+        <ReplyComment
+          replyContent={replyContent}
+          setReplyContent={setReplyContent}
+          setToDoReply={setToDoReply}
+          handleUpdateReply={handleUpdateReply}
         />
-        <CommentContent
-          ref={inputRef}
-          onChange={handleContentChange}
-          content={text}
-          editClicked={editClicked}
-          handleSaveClick={handleSaveClick}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }

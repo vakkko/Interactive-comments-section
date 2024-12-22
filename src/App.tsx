@@ -23,36 +23,7 @@ function App() {
   const [selectedComment, setSelectedComment] = useState<{
     index: number;
   } | null>(null);
-
-  const handleReply = (i: number, replyTo: string) => {
-    const newReply = {
-      id: Date.now(),
-      replyingTo: replyTo,
-      content: `@${replyTo}`,
-      createdAt: "",
-      replies: [],
-      score: 0,
-      user: {
-        image: {
-          webp: userData.currentUser.image.webp,
-          png: userData.currentUser.image.png,
-        },
-        username: "juliusomo",
-      },
-    };
-
-    const updatedComments = [...userData.comments];
-
-    if (i === 3) {
-      updatedComments[1].replies.push(newReply);
-    } else {
-      updatedComments[i - 1].replies.push(newReply);
-    }
-    setUserData({
-      ...userData,
-      comments: updatedComments,
-    });
-  };
+  const [replyContent, setReplyContent] = useState<string>("");
 
   const handleNewComment = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -93,23 +64,73 @@ function App() {
   const handleDelete = (index: number) => {
     const comments = [...userData.comments];
 
-    const updatedComments = comments.filter((comment) => {
-      if (comment.id === index) {
-        return false;
-      }
+    const updatedComments = comments
+      .map((comment) => ({
+        ...comment,
+        replies: [...comment.replies],
+      }))
+      .filter((comment) => {
+        if (comment.id === index) {
+          return false;
+        }
 
-      if (comment.replies.length > 0) {
-        comment.replies = comment.replies.filter((reply) => reply.id !== index);
-      }
+        if (comment.replies.length > 0) {
+          comment.replies = comment.replies.filter(
+            (reply) => reply.id !== index
+          );
+        }
 
-      return true;
-    });
+        return true;
+      });
 
     setUserData({
       ...userData,
       comments: updatedComments,
     });
     setDeleteClicked(false);
+  };
+
+  const handleUpdateReply = (i: number) => {
+    if (!replyContent.trim()) {
+      alert("Reply cannot be empty!");
+      return;
+    }
+
+    const newReply = {
+      content: replyContent,
+      createdAt: "",
+      id: Date.now(),
+      replyingTo: "",
+      score: 0,
+      user: {
+        image: {
+          webp: userData.currentUser.image.webp,
+          png: userData.currentUser.image.png,
+        },
+        username: "juliusomo",
+      },
+      replies: [],
+    };
+
+    const updatedComments = [...userData.comments];
+    if (updatedComments[i - 1].replies === undefined) {
+      updatedComments.map((comment) => {
+        comment.replies.filter((_, index) => {
+          if (index === i) {
+            return comment.replies.push(newReply);
+          }
+        });
+      });
+    } else {
+      updatedComments[i - 1].replies.push(newReply);
+    }
+
+    setUserData({
+      ...userData,
+      comments: updatedComments,
+    });
+
+    setReplyContent("");
   };
 
   const handleCancel = () => {
@@ -143,8 +164,10 @@ function App() {
     <div className="comments-section">
       <RecursiveComment
         OnDelete={OnDelete}
-        handleReply={handleReply}
-        data={userData}
+        userData={userData}
+        replyContent={replyContent}
+        setReplyContent={setReplyContent}
+        handleUpdateReply={handleUpdateReply}
       />
       <AddComment
         userName={userData?.currentUser.username}

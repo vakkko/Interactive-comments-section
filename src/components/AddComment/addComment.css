@@ -10,11 +10,20 @@
 
 .btn-send {
   background-color: #5357b6;
+}
+
+.btn-deny {
+  background-color: rgb(195, 34, 34);
+}
+
+.btn-send,
+.btn-deny {
   padding: 1.2rem 3rem;
   border-radius: 10px;
 }
 
-.create-comment > textarea {
+.create-comment > textarea,
+.comment-content {
   font-family: "Rubik", sans-serif;
   border: none;
   padding: 1rem 0 6rem 1rem;
@@ -24,5 +33,12 @@
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 2.4rem;
-  text-align: left;
+  width: 100%;
+}
+
+.reply-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
 }

@@ -1,21 +1,26 @@
 import { Commentor } from "../../../App.modal";
 import Comment from "../Comment";
 import "./recursiveComment.css";
+import { Dispatch, SetStateAction } from "react";
 
 interface RecursiveCommentProps {
-  data: Commentor;
+  userData: Commentor;
   OnDelete: (index: number) => void;
-  handleReply: (index: number, userName: string) => void;
+  replyContent: string;
+  setReplyContent: Dispatch<SetStateAction<string>>;
+  handleUpdateReply: (i: number) => void;
 }
 
 export default function RecursiveComment({
-  data,
+  userData,
   OnDelete,
-  handleReply,
+  replyContent,
+  setReplyContent,
+  handleUpdateReply,
 }: RecursiveCommentProps) {
   return (
     <>
-      {data?.comments.map((comment) => (
+      {userData?.comments.map((comment) => (
         <div className={"comment-card"} key={comment.id}>
           <Comment
             userName={comment.user.username}
@@ -24,17 +29,21 @@ export default function RecursiveComment({
             content={comment.content}
             score={comment.score}
             onDelete={() => OnDelete(comment.id)}
-            onReply={() => handleReply(comment.id, comment.user.username)}
+            replyContent={replyContent}
+            setReplyContent={setReplyContent}
+            handleUpdateReply={() => handleUpdateReply(comment.id)}
           />
           <div className="replies-section">
             {comment.replies && (
               <RecursiveComment
-                data={{
-                  currentUser: data.currentUser,
+                userData={{
+                  currentUser: userData.currentUser,
                   comments: comment.replies,
                 }}
                 OnDelete={OnDelete}
-                handleReply={handleReply}
+                replyContent={replyContent}
+                setReplyContent={setReplyContent}
+                handleUpdateReply={() => handleUpdateReply(comment.id)}
               />
             )}
           </div>

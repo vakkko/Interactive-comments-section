@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 interface Image {
   png: string;
   webp: string;
@@ -39,7 +41,9 @@ export interface CommentProps {
   content: string;
   score: number;
   onDelete: () => void;
-  onReply: () => void;
+  replyContent: string;
+  setReplyContent: Dispatch<SetStateAction<string>>;
+  handleUpdateReply: () => void;
 }
 
 export interface AuthorProps {
@@ -49,5 +53,12 @@ export interface AuthorProps {
   handleEditClick: () => void;
   onDelete: () => void;
   editClicked: boolean;
-  onReply: () => void;
+  setToDoReply: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ReplyCommentProps {
+  setToDoReply: Dispatch<SetStateAction<boolean>>;
+  replyContent: string;
+  setReplyContent: Dispatch<SetStateAction<string>>;
+  handleUpdateReply: () => void;
 }

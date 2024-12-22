@@ -8,7 +8,7 @@ export default function Author({
   handleEditClick,
   onDelete,
   editClicked,
-  onReply,
+  setToDoReply,
 }: AuthorProps) {
   const isNotAuthor = userName !== "juliusomo";
 
@@ -22,7 +22,7 @@ export default function Author({
       </div>
       <div className="buttons">
         {isNotAuthor && (
-          <button onClick={onReply} className="btn-reply">
+          <button onClick={() => setToDoReply(true)} className="btn-reply">
             <img src="./images/icon-reply.svg" alt="reply icon" />
             Reply
           </button>
