@@ -1,22 +1,13 @@
-import { Commentor } from "../../../App.modal";
 import Comment from "../Comment";
 import "./recursiveComment.css";
-import { Dispatch, SetStateAction } from "react";
-
-interface RecursiveCommentProps {
-  userData: Commentor;
-  OnDelete: (index: number) => void;
-  replyContent: string;
-  setReplyContent: Dispatch<SetStateAction<string>>;
-  handleUpdateReply: (i: number) => void;
-}
+import { RecursiveCommentProps } from "../../../App.modal";
 
 export default function RecursiveComment({
   userData,
   OnDelete,
   replyContent,
   setReplyContent,
-  handleUpdateReply,
+  setUserData,
 }: RecursiveCommentProps) {
   return (
     <>
@@ -31,7 +22,9 @@ export default function RecursiveComment({
             onDelete={() => OnDelete(comment.id)}
             replyContent={replyContent}
             setReplyContent={setReplyContent}
-            handleUpdateReply={() => handleUpdateReply(comment.id)}
+            userData={userData}
+            setUserData={setUserData}
+            index={comment.id}
           />
           <div className="replies-section">
             {comment.replies && (
@@ -43,7 +36,7 @@ export default function RecursiveComment({
                 OnDelete={OnDelete}
                 replyContent={replyContent}
                 setReplyContent={setReplyContent}
-                handleUpdateReply={() => handleUpdateReply(comment.id)}
+                setUserData={setUserData}
               />
             )}
           </div>
@@ -52,3 +45,6 @@ export default function RecursiveComment({
     </>
   );
 }
+
+// რეკურსიულ კომპონენტს ვაწვდით userData, მას ასევე უნდა მოვაწოდოთ setUserData, რომ შემდეგ ორივე პროპსი ჩავაწოდოთ კომენტ
+//  კომპონენტს, რომ კომენტ კომპონენტშივე დავწეროთ handleUpdatereply ფუნქცია რათა მოვუთითოთ რომ კომენტარის შემდეგ განქრეს ReplyComponent setToClick ფუნქციის გამოძახებით.

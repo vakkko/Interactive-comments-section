@@ -90,49 +90,6 @@ function App() {
     setDeleteClicked(false);
   };
 
-  const handleUpdateReply = (i: number) => {
-    if (!replyContent.trim()) {
-      alert("Reply cannot be empty!");
-      return;
-    }
-
-    const newReply = {
-      content: replyContent,
-      createdAt: "",
-      id: Date.now(),
-      replyingTo: "",
-      score: 0,
-      user: {
-        image: {
-          webp: userData.currentUser.image.webp,
-          png: userData.currentUser.image.png,
-        },
-        username: "juliusomo",
-      },
-      replies: [],
-    };
-
-    const updatedComments = [...userData.comments];
-    if (updatedComments[i - 1].replies === undefined) {
-      updatedComments.map((comment) => {
-        comment.replies.filter((_, index) => {
-          if (index === i) {
-            return comment.replies.push(newReply);
-          }
-        });
-      });
-    } else {
-      updatedComments[i - 1].replies.push(newReply);
-    }
-
-    setUserData({
-      ...userData,
-      comments: updatedComments,
-    });
-
-    setReplyContent("");
-  };
-
   const handleCancel = () => {
     setDeleteClicked(false);
   };
@@ -167,7 +124,7 @@ function App() {
         userData={userData}
         replyContent={replyContent}
         setReplyContent={setReplyContent}
-        handleUpdateReply={handleUpdateReply}
+        setUserData={setUserData}
       />
       <AddComment
         userName={userData?.currentUser.username}

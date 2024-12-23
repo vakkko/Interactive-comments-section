@@ -15,13 +15,14 @@ export default function Comment({
   onDelete,
   replyContent,
   setReplyContent,
-  handleUpdateReply,
+  userData,
+  setUserData,
+  index,
 }: CommentProps) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [text, setText] = useState<string>(content);
   const [editClicked, setEditClicked] = useState<boolean>(false);
   const [toDoReply, setToDoReply] = useState<boolean>(false);
-
   const handleEditClick = () => {
     if (inputRef.current && !editClicked) {
       inputRef.current.focus();
@@ -42,6 +43,50 @@ export default function Comment({
 
   const handleContentChange = (newContent: string) => {
     setText(newContent);
+  };
+
+  const handleUpdateReply = (index: number) => {
+    if (!replyContent.trim()) {
+      alert("Reply cannot be empty!");
+      return;
+    }
+
+    const newReply = {
+      content: replyContent,
+      createdAt: "",
+      id: Date.now(),
+      replyingTo: "",
+      score: 0,
+      user: {
+        image: {
+          webp: userData.currentUser.image.webp,
+          png: userData.currentUser.image.png,
+        },
+        username: "juliusomo",
+      },
+      replies: [],
+    };
+
+    const updatedComments = [...userData.comments];
+
+    if (updatedComments[index - 1].replies === undefined) {
+      updatedComments.map((comment) => {
+        comment.replies.map((replyComment) => {
+          if (replyComment.id === index) {
+            return comment.replies.push(newReply);
+          }
+        });
+      });
+    } else {
+      updatedComments[index - 1].replies.push(newReply);
+    }
+
+    setUserData({
+      ...userData,
+      comments: updatedComments,
+    });
+    setReplyContent("");
+    setToDoReply(false);
   };
 
   return (
@@ -74,7 +119,7 @@ export default function Comment({
           replyContent={replyContent}
           setReplyContent={setReplyContent}
           setToDoReply={setToDoReply}
-          handleUpdateReply={handleUpdateReply}
+          handleUpdateReply={() => handleUpdateReply(index)}
         />
       )}
     </>

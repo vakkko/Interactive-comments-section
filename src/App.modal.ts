@@ -43,7 +43,9 @@ export interface CommentProps {
   onDelete: () => void;
   replyContent: string;
   setReplyContent: Dispatch<SetStateAction<string>>;
-  handleUpdateReply: () => void;
+  userData: Commentor;
+  setUserData: Dispatch<SetStateAction<Commentor>>;
+  index: number;
 }
 
 export interface AuthorProps {
@@ -61,4 +63,12 @@ export interface ReplyCommentProps {
   replyContent: string;
   setReplyContent: Dispatch<SetStateAction<string>>;
   handleUpdateReply: () => void;
+}
+
+export interface RecursiveCommentProps {
+  userData: Commentor;
+  OnDelete: (index: number) => void;
+  replyContent: string;
+  setReplyContent: Dispatch<SetStateAction<string>>;
+  setUserData: Dispatch<SetStateAction<Commentor>>;
 }
