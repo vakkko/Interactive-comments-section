@@ -6,21 +6,9 @@ import { CommentProps } from "../../App.modal";
 import { useRef, useState } from "react";
 import ReplyComment from "./ReplyComment/ReplyComment";
 
-export default function Comment({
-  userName,
-  picture,
-  created,
-  content,
-  score,
-  onDelete,
-  replyContent,
-  setReplyContent,
-  userData,
-  setUserData,
-  index,
-}: CommentProps) {
+export default function Comment({ commentProps }: CommentProps) {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
-  const [text, setText] = useState<string>(content);
+  const [text, setText] = useState<string>(commentProps.content);
   const [editClicked, setEditClicked] = useState<boolean>(false);
   const [toDoReply, setToDoReply] = useState<boolean>(false);
   const handleEditClick = () => {
@@ -46,28 +34,28 @@ export default function Comment({
   };
 
   const handleUpdateReply = (index: number) => {
-    if (!replyContent.trim()) {
+    if (!commentProps.replyContent.trim()) {
       alert("Reply cannot be empty!");
       return;
     }
 
     const newReply = {
-      content: replyContent,
+      content: commentProps.replyContent,
       createdAt: "",
       id: Date.now(),
       replyingTo: "",
       score: 0,
       user: {
         image: {
-          webp: userData.currentUser.image.webp,
-          png: userData.currentUser.image.png,
+          webp: commentProps.userData.currentUser.image.webp,
+          png: commentProps.userData.currentUser.image.png,
         },
         username: "juliusomo",
       },
       replies: [],
     };
 
-    const updatedComments = [...userData.comments];
+    const updatedComments = [...commentProps.userData.comments];
 
     if (updatedComments[index - 1].replies === undefined) {
       updatedComments.map((comment) => {
@@ -81,11 +69,11 @@ export default function Comment({
       updatedComments[index - 1].replies.push(newReply);
     }
 
-    setUserData({
-      ...userData,
+    commentProps.setUserData({
+      ...commentProps.userData,
       comments: updatedComments,
     });
-    setReplyContent("");
+    commentProps.setReplyContent("");
     setToDoReply(false);
   };
 
@@ -93,15 +81,15 @@ export default function Comment({
     <>
       <div className={"user-comment"}>
         <div>
-          <Score score={score} />
+          <Score score={commentProps.score} />
         </div>
         <div className="author-comment">
           <Author
             handleEditClick={handleEditClick}
-            created={created}
-            picture={picture}
-            userName={userName}
-            onDelete={onDelete}
+            created={commentProps.created}
+            picture={commentProps.picture}
+            userName={commentProps.userName}
+            onDelete={commentProps.onDelete}
             editClicked={editClicked}
             setToDoReply={setToDoReply}
           />
@@ -116,10 +104,10 @@ export default function Comment({
       </div>
       {toDoReply && (
         <ReplyComment
-          replyContent={replyContent}
-          setReplyContent={setReplyContent}
+          replyContent={commentProps.replyContent}
+          setReplyContent={commentProps.setReplyContent}
           setToDoReply={setToDoReply}
-          handleUpdateReply={() => handleUpdateReply(index)}
+          handleUpdateReply={() => handleUpdateReply(commentProps.index)}
         />
       )}
     </>

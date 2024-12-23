@@ -24,7 +24,7 @@ interface Reply {
   content: string;
   createdAt: string;
   score: number;
-  replyingTo: string;
+  replyingTo?: string;
   user: User;
   replies: Reply[];
 }
@@ -35,17 +35,19 @@ export interface Commentor {
 }
 
 export interface CommentProps {
-  userName: string;
-  picture: string;
-  created: string;
-  content: string;
-  score: number;
-  onDelete: () => void;
-  replyContent: string;
-  setReplyContent: Dispatch<SetStateAction<string>>;
-  userData: Commentor;
-  setUserData: Dispatch<SetStateAction<Commentor>>;
-  index: number;
+  commentProps: {
+    userName: string;
+    picture: string;
+    created: string;
+    content: string;
+    score: number;
+    onDelete: () => void;
+    replyContent: string;
+    setReplyContent: Dispatch<SetStateAction<string>>;
+    userData: Commentor;
+    setUserData: Dispatch<SetStateAction<Commentor>>;
+    index: number;
+  };
 }
 
 export interface AuthorProps {

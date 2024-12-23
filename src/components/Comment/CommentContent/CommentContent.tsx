@@ -13,7 +13,6 @@ const CommentContent = forwardRef<HTMLTextAreaElement, CommentProps>(
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e.target.value);
     };
-
     return (
       <div className="comment-wrapper">
         <textarea
@@ -23,6 +22,7 @@ const CommentContent = forwardRef<HTMLTextAreaElement, CommentProps>(
           cols={80}
           value={content}
           onChange={handleChange}
+          disabled={!editClicked}
         />
         {editClicked && (
           <button onClick={handleSaveClick} className="btn-update">
